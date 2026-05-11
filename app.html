@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Бурбе — Скачать приложение</title>
-  <meta name="description" content="Скачай приложение Бурбе — заказывай бургеры в один клик, получай бонусы и эксклюзивные предложения."/>
+  <title>Бурбе — Скачать для Windows</title>
+  <meta name="description" content="Скачай приложение Бурбе для Windows — заказывай бургеры в один клик, получай бонусы и эксклюзивные предложения."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet"/>
   <style>
@@ -83,42 +83,54 @@
       transition:transform .2s,box-shadow .2s;min-width:190px;
     }
     .dl-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
-    .dl-btn.ios{background:#fff;color:var(--dk)}
-    .dl-btn.android{background:var(--y);color:var(--dk)}
+    .dl-btn.win{background:var(--y);color:var(--dk)}
     .dl-btn-icon{font-size:2rem;line-height:1}
     .dl-btn-text{display:flex;flex-direction:column}
     .dl-btn-sub{font-size:.72rem;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.5px}
     .dl-btn-name{font-family:'Unbounded',sans-serif;font-size:.95rem;font-weight:900;line-height:1.2}
 
-    /* phone mockup */
-    .hero-phone{
-      flex-shrink:0;width:280px;
+    .soon-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+    .soon-btn{
+      display:flex;align-items:center;gap:10px;
+      padding:11px 20px;border-radius:14px;
+      background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);
+      opacity:.7;cursor:default;min-width:170px;
+    }
+    .soon-btn-icon{font-size:1.5rem;line-height:1}
+    .soon-btn-text{display:flex;flex-direction:column}
+    .soon-btn-sub{font-size:.65rem;font-weight:700;color:var(--y);text-transform:uppercase;letter-spacing:.5px}
+    .soon-btn-name{font-family:'Unbounded',sans-serif;font-size:.82rem;font-weight:900;color:rgba(255,255,255,.75);line-height:1.2}
+
+    /* desktop mockup */
+    .hero-monitor{
+      flex-shrink:0;width:340px;
       animation:phoneFloat 6s ease-in-out infinite;
     }
-    @keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(2deg)}}
-    .phone-frame{
+    @keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-18px) rotate(1deg)}}
+    .monitor-frame{
       background:linear-gradient(145deg,#2a2a2a,#1a1a1a);
-      border-radius:40px;padding:14px;
+      border-radius:16px;padding:10px 10px 0;
       box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1.5px rgba(255,255,255,.08);
     }
-    .phone-screen{
+    .monitor-screen{
       background:linear-gradient(160deg,var(--r),#8b0000);
-      border-radius:28px;overflow:hidden;
-      aspect-ratio:9/19;display:flex;flex-direction:column;
+      border-radius:8px 8px 0 0;overflow:hidden;
+      aspect-ratio:16/10;display:flex;flex-direction:column;
     }
-    .ps-head{background:rgba(0,0,0,.3);padding:16px;display:flex;justify-content:space-between;align-items:center}
-    .ps-logo{font-family:'Unbounded',sans-serif;color:var(--y);font-weight:900;font-size:.8rem}
-    .ps-cart{color:#fff;font-size:.9rem}
-    .ps-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
-    .ps-burger{font-size:4rem;animation:spin 20s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .ps-item-name{color:#fff;font-family:'Unbounded',sans-serif;font-size:.75rem;font-weight:900;text-align:center}
-    .ps-price{color:var(--y);font-family:'Unbounded',sans-serif;font-size:1.1rem;font-weight:900}
-    .ps-btn{background:var(--y);color:var(--dk);font-weight:900;font-size:.72rem;padding:9px 22px;border-radius:50px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;width:100%}
-    .ps-footer{background:rgba(0,0,0,.25);padding:10px;display:flex;justify-content:space-around}
-    .ps-tab{color:rgba(255,255,255,.5);font-size:.65rem;text-align:center;cursor:pointer;transition:color .2s}
-    .ps-tab.active{color:var(--y)}
-    .ps-tab-icon{font-size:1.2rem;display:block}
+    .ms-bar{background:rgba(0,0,0,.4);padding:7px 12px;display:flex;align-items:center;gap:6px}
+    .ms-dot{width:9px;height:9px;border-radius:50%}
+    .ms-dot.r{background:#ff5f57}.ms-dot.y{background:#febc2e}.ms-dot.g{background:#28c840}
+    .ms-logo{font-family:'Unbounded',sans-serif;color:var(--y);font-weight:900;font-size:.65rem;margin-left:auto;margin-right:auto;padding-right:30px}
+    .ms-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px}
+    .ms-burger{font-size:3rem}
+    .ms-name{color:#fff;font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:900}
+    .ms-price{color:var(--y);font-family:'Unbounded',sans-serif;font-size:.95rem;font-weight:900}
+    .ms-btn{background:var(--y);color:var(--dk);font-weight:900;font-size:.6rem;padding:7px 18px;border-radius:50px;border:none;cursor:pointer;font-family:'Nunito',sans-serif}
+    .ms-footer-bar{background:rgba(0,0,0,.25);padding:7px 16px;display:flex;justify-content:space-around}
+    .ms-tab{color:rgba(255,255,255,.5);font-size:.55rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
+    .ms-tab.active{color:var(--y)}
+    .monitor-stand{width:60px;height:22px;background:linear-gradient(#2a2a2a,#1a1a1a);margin:0 auto;border-radius:0 0 4px 4px}
+    .monitor-base{width:110px;height:8px;background:#222;margin:0 auto;border-radius:4px}
 
     /* ── WHY APP ── */
     .why{padding:80px 5vw;max-width:1100px;margin:0 auto;text-align:center}
@@ -215,47 +227,58 @@
   <div class="hero-bg-circle c2"></div>
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-badge">🚀 ДОСТУПНО ДЛЯ iOS И ANDROID</div>
-      <h1 class="hero-title">Бургеры<br/>в <em>один</em><br/>клик</h1>
-      <p class="hero-sub">Заказывай любимые бургеры прямо с телефона. Бонусы, персональные скидки и горячие предложения — всё в приложении.</p>
+      <div class="hero-badge">🖥️ ДОСТУПНО ДЛЯ WINDOWS</div>
+      <h1 class="hero-title">Бургеры<br/>прямо на<br/><em>ПК</em></h1>
+      <p class="hero-sub">Заказывай любимые бургеры с компьютера. Быстро, удобно, без браузера. Скачай приложение Бурбе для Windows — бесплатно.</p>
       <div class="download-btns">
-        <a href="APP_STORE_LINK_HERE" class="dl-btn ios">
-          <div class="dl-btn-icon">🍎</div>
+        <a href="WINDOWS_DOWNLOAD_LINK_HERE" class="dl-btn win">
+          <div class="dl-btn-icon">🪟</div>
           <div class="dl-btn-text">
-            <span class="dl-btn-sub">Скачать в</span>
-            <span class="dl-btn-name">App Store</span>
-          </div>
-        </a>
-        <a href="GOOGLE_PLAY_LINK_HERE" class="dl-btn android">
-          <div class="dl-btn-icon">▶</div>
-          <div class="dl-btn-text">
-            <span class="dl-btn-sub">Доступно в</span>
-            <span class="dl-btn-name">Google Play</span>
+            <span class="dl-btn-sub">Скачать для</span>
+            <span class="dl-btn-name">Windows</span>
           </div>
         </a>
       </div>
-    </div>
-    <div class="hero-phone">
-      <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="ps-head">
-            <span class="ps-logo">БУРБЕ.</span>
-            <span class="ps-cart">🛒</span>
+      <div class="soon-btns">
+        <div class="soon-btn">
+          <div class="soon-btn-icon">🍎</div>
+          <div class="soon-btn-text">
+            <span class="soon-btn-sub">Скоро</span>
+            <span class="soon-btn-name">App Store</span>
           </div>
-          <div class="ps-hero">
-            <div class="ps-burger">🍔</div>
-            <div class="ps-item-name">ЧИКЕНБУРБЕ</div>
-            <div class="ps-price">449 ₸</div>
-            <button class="ps-btn">+ ДОБАВИТЬ</button>
-          </div>
-          <div class="ps-footer">
-            <div class="ps-tab active"><span class="ps-tab-icon">🏠</span>Главная</div>
-            <div class="ps-tab"><span class="ps-tab-icon">🍔</span>Меню</div>
-            <div class="ps-tab"><span class="ps-tab-icon">🎁</span>Комбо</div>
-            <div class="ps-tab"><span class="ps-tab-icon">👤</span>Профиль</div>
+        </div>
+        <div class="soon-btn">
+          <div class="soon-btn-icon">▶</div>
+          <div class="soon-btn-text">
+            <span class="soon-btn-sub">Скоро</span>
+            <span class="soon-btn-name">Google Play</span>
           </div>
         </div>
       </div>
+    </div>
+    <div class="hero-monitor">
+      <div class="monitor-frame">
+        <div class="monitor-screen">
+          <div class="ms-bar">
+            <div class="ms-dot r"></div><div class="ms-dot y"></div><div class="ms-dot g"></div>
+            <span class="ms-logo">БУРБЕ.</span>
+          </div>
+          <div class="ms-body">
+            <div class="ms-burger">🍔</div>
+            <div class="ms-name">ЧИКЕНБУРБЕ</div>
+            <div class="ms-price">449 ₸</div>
+            <button class="ms-btn">+ ДОБАВИТЬ</button>
+          </div>
+          <div class="ms-footer-bar">
+            <div class="ms-tab active">🏠 Главная</div>
+            <div class="ms-tab">🍔 Меню</div>
+            <div class="ms-tab">🎁 Комбо</div>
+            <div class="ms-tab">👤 Профиль</div>
+          </div>
+        </div>
+      </div>
+      <div class="monitor-stand"></div>
+      <div class="monitor-base"></div>
     </div>
   </div>
 </section>
@@ -308,7 +331,7 @@
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-title">Скачай</div>
-      <div class="step-desc">App Store или Google Play — бесплатно</div>
+      <div class="step-desc">Скачай .exe файл для Windows — бесплатно</div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
@@ -345,20 +368,13 @@
 <!-- CTA -->
 <section class="cta">
   <h2 class="cta-title">Попробуй прямо сейчас</h2>
-  <p class="cta-sub">Скачай бесплатно — доступно для iPhone и Android</p>
+  <p class="cta-sub">Скачай бесплатно для Windows. iOS и Android — скоро 🔥</p>
   <div class="cta-btns">
-    <a href="APP_STORE_LINK_HERE" class="dl-btn ios" style="border:2px solid var(--dk)">
-      <div class="dl-btn-icon">🍎</div>
+    <a href="WINDOWS_DOWNLOAD_LINK_HERE" class="dl-btn win" style="border:2px solid var(--dk)">
+      <div class="dl-btn-icon">🪟</div>
       <div class="dl-btn-text">
-        <span class="dl-btn-sub">Скачать в</span>
-        <span class="dl-btn-name">App Store</span>
-      </div>
-    </a>
-    <a href="GOOGLE_PLAY_LINK_HERE" class="dl-btn android">
-      <div class="dl-btn-icon">▶</div>
-      <div class="dl-btn-text">
-        <span class="dl-btn-sub">Доступно в</span>
-        <span class="dl-btn-name">Google Play</span>
+        <span class="dl-btn-sub">Скачать для</span>
+        <span class="dl-btn-name">Windows</span>
       </div>
     </a>
   </div>
