@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Бурбе — Меню</title>
+  <meta name="description" content="Полное меню Бурбе — бургеры, гарниры, напитки."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--r:#E8272A;--y:#FFD600;--o:#FF6B00;--dk:#1A0A00;--cream:#FFF8EF;--rad:18px;--sh:0 6px 28px rgba(0,0,0,0.1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--dk)}
+
+    nav{position:sticky;top:0;z-index:999;height:64px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;background:rgba(232,39,42,.97);backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(232,39,42,.35)}
+    .logo{font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;color:var(--y);text-decoration:none}
+    .logo b{color:#fff}
+    .nav-links{display:flex;gap:6px;align-items:center}
+    .nav-links a{color:#fff;text-decoration:none;font-weight:700;font-size:.88rem;padding:7px 14px;border-radius:50px;transition:background .2s}
+    .nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,.2)}
+    .cart-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.35);color:#fff;padding:7px 16px;border-radius:50px;font-weight:900;font-size:.88rem;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
+    .cart-btn:hover{background:rgba(255,255,255,.25)}
+    .c-count{background:var(--y);color:var(--dk);font-family:'Unbounded',sans-serif;font-size:.62rem;font-weight:900;width:19px;height:19px;border-radius:50%;display:none;align-items:center;justify-content:center}
+    .burger-icon{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+    .burger-icon span{display:block;width:22px;height:2px;background:#fff;border-radius:2px}
+    .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--r);padding:16px;z-index:998;flex-direction:column;gap:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+    .mobile-menu a{color:#fff;text-decoration:none;font-weight:700;padding:10px 14px;border-radius:10px;display:block}
+    .mobile-menu a:hover{background:rgba(255,255,255,.15)}
+    .mobile-menu.open{display:flex}
+
+    /* PAGE HERO */
+    .ph{background:linear-gradient(90deg,var(--r),var(--o));padding:36px 5vw;text-align:center}
+    .ph h1{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:6px}
+    .ph p{color:rgba(255,255,255,.82);font-weight:600}
+
+    /* STICKY FILTERS */
+    .filters-wrap{position:sticky;top:64px;z-index:100;background:var(--cream);border-bottom:2px solid #f0e8e0;padding:14px 5vw;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+    .filters{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .filters::-webkit-scrollbar{display:none}
+    .fb{background:#fff;border:2px solid #e8e0d8;border-radius:50px;padding:7px 18px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+    .fb:hover,.fb.active{background:var(--r);color:#fff;border-color:var(--r)}
+
+    /* GRID */
+    .ms{padding:28px 5vw 0;max-width:1200px;margin:0 auto}
+    .ms-title{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;margin-bottom:18px;padding-bottom:6px;border-bottom:3px solid var(--y);display:inline-block}
+    .mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;margin-bottom:40px}
+
+    .ic{background:#fff;border-radius:var(--rad);box-shadow:var(--sh);overflow:hidden;transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+    .ic:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.13)}
+    .ii{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#FFE0B2,#FFCCBC);display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+    .ii img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+    .ibadge{position:absolute;top:9px;right:9px;background:var(--r);color:#fff;font-size:.62rem;font-weight:900;padding:3px 9px;border-radius:50px}
+    .ib{padding:15px;flex:1;display:flex;flex-direction:column}
+    .in{font-family:'Unbounded',sans-serif;font-size:.88rem;font-weight:700;margin-bottom:4px}
+    .id{color:#888;font-size:.8rem;flex:1;margin-bottom:12px;line-height:1.5}
+    .if{display:flex;align-items:center;justify-content:space-between}
+    .ip{font-family:'Unbounded',sans-serif;font-size:1.05rem;font-weight:900;color:var(--r)}
+    .ab{background:var(--r);color:#fff;border:none;border-radius:50px;padding:8px 16px;font-weight:900;font-size:.8rem;cursor:pointer;transition:all .2s}
+    .ab:hover{background:#c01c1f;transform:scale(1.06)}
+    .ab.ok{background:#27ae60}
+
+    /* CART */
+    .c-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
+    .c-overlay.open{opacity:1;pointer-events:all}
+    .c-drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100vw);background:#fff;z-index:1200;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 32px rgba(0,0,0,.15)}
+    .c-drawer.open{transform:translateX(0)}
+    .c-head{background:var(--r);padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+    .c-head h3{font-family:'Unbounded',sans-serif;color:#fff;font-size:1rem}
+    .c-close{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer}
+    .c-body{flex:1;overflow-y:auto;padding:14px}
+    .c-empty{text-align:center;padding:50px 20px;color:#bbb;font-weight:600}
+    .c-empty span{font-size:2.8rem;display:block;margin-bottom:10px}
+    .c-item{display:flex;gap:10px;align-items:center;padding:11px;background:#f9f6f2;border-radius:12px;margin-bottom:8px}
+    .c-item-e{font-size:1.8rem;min-width:40px;text-align:center}
+    .c-item-i{flex:1}
+    .c-item-n{font-weight:900;font-size:.85rem;margin-bottom:2px}
+    .c-item-p{color:var(--r);font-weight:700;font-size:.8rem}
+    .qty{display:flex;align-items:center;gap:5px}
+    .qb{width:26px;height:26px;border-radius:50%;border:2px solid #e0d8d0;background:#fff;font-size:.95rem;font-weight:900;cursor:pointer;transition:all .2s;line-height:1}
+    .qb:hover{background:var(--r);color:#fff;border-color:var(--r)}
+    .qn{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.85rem;min-width:18px;text-align:center}
+    .c-foot{padding:14px 20px;border-top:2px solid #f0e8e0}
+    .c-tot{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .c-tot-l{font-weight:700;color:#777}
+    .c-tot-v{font-family:'Unbounded',sans-serif;font-weight:900;font-size:1.3rem}
+    .btn-co{display:block;width:100%;background:var(--r);color:#fff;font-family:'Unbounded',sans-serif;font-weight:700;font-size:.92rem;padding:14px;border:none;border-radius:50px;cursor:pointer;text-align:center;text-decoration:none;transition:all .2s}
+    .btn-co:hover{background:#c01c1f;transform:translateY(-2px)}
+    .btn-clr{background:none;border:none;color:#bbb;font-size:.76rem;cursor:pointer;display:block;text-align:center;margin-top:8px;width:100%}
+    .btn-clr:hover{color:var(--r)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes popIn{0%{opacity:0;transform:scale(.5)}70%{transform:scale(1.12)}100%{opacity:1;transform:scale(1)}}
+    footer{background:var(--dk);color:#555;text-align:center;padding:32px 5vw;margin-top:60px}
+    footer .fl{font-family:'Unbounded',sans-serif;font-size:1.4rem;font-weight:900;color:var(--y);display:block;margin-bottom:12px}
+    footer a{color:#777;text-decoration:none;margin:0 8px;font-size:.82rem}
+    footer a:hover{color:var(--y)}
+    footer p{font-size:.78rem;margin-top:10px}
+    @media(max-width:680px){.nav-links{display:none}.burger-icon{display:flex}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Бур<b>бе.</b></a>
+  <div class="nav-links">
+    <a href="index.html">🏠 Главная</a>
+    <a href="menu.html" class="active">🍔 Меню</a>
+    <a href="combo.html">🎁 Комбо</a>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Корзина
+      <span class="c-count" id="cNavCount">0</span>
+    </button>
+  </div>
+  <div class="burger-icon" onclick="document.getElementById('mm').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mm">
+  <a href="index.html">🏠 Главная</a>
+  <a href="menu.html">🍔 Меню</a>
+  <a href="combo.html">🎁 Комбо</a>
+  <a href="#" onclick="openCart();document.getElementById('mm').classList.remove('open');return false">🛒 Корзина</a>
+</div>
+
+<div class="ph">
+  <h1>🍔 Меню Бурбе</h1>
+  <p>Выбирай, добавляй в корзину и наслаждайся!</p>
+</div>
+
+<div class="filters-wrap">
+  <div class="filters">
+    <button class="fb active" data-f="all">Всё</button>
+    <button class="fb" data-f="burger">🍔 Бургеры</button>
+    <button class="fb" data-f="hot">🌶️ Острые</button>
+    <button class="fb" data-f="premium">👑 Премиум</button>
+    <button class="fb" data-f="healthy">🥗 Здоровое</button>
+    <button class="fb" data-f="sides">🍟 Гарниры</button>
+    <button class="fb" data-f="drinks">🥤 Напитки</button>
+  </div>
+</div>
+
+<div style="padding-bottom:60px">
+
+<!-- БУРГЕРЫ -->
+<div class="ms" data-cat="burger">
+  <div class="ms-title">🍔 Бургеры</div>
+  <div class="mg">
+
+    <div class="ic" data-tags="burger">
+      <div class="ii">
+        <!--КАРТИНКА 1: <img src="https://drive.google.com/uc?export=view&id=ID">-->
+        <span>🍔</span><div class="ibadge">ХИТ</div>
+      </div>
+      <div class="ib"><div class="in">Чикенбурбе</div><div class="id">Куриная котлета в хрустящей панировке, салат, томат, сыр чеддер, фирменный соус.</div>
+        <div class="if"><div class="ip">449 ₸</div><button class="ab" onclick="addToCart(this,'Чикенбурбе',449,'🍔')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger">
+      <div class="ii" style="background:linear-gradient(135deg,#b3d4ff,#d0e8ff)">
+        <!--КАРТИНКА 2--><span>🐱</span><div class="ibadge">НОВИНКА</div>
+      </div>
+      <div class="ib"><div class="in">Кошкобурбе</div><div class="id">Двойная говяжья котлета, маринованный лук, огурцы, тающий сыр, особый соус.</div>
+        <div class="if"><div class="ip">519 ₸</div><button class="ab" onclick="addToCart(this,'Кошкобурбе',519,'🐱')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger hot">
+      <div class="ii" style="background:linear-gradient(135deg,#FFE0B2,#FFAB40)">
+        <!--КАРТИНКА 3--><span>🌶️</span><div class="ibadge">ОСТРЫЙ</div>
+      </div>
+      <div class="ib"><div class="in">Огнебурбе</div><div class="id">Котлета с перцем чили, хабанеро-соус, халапеньо и ледяной айоли. Для смелых!</div>
+        <div class="if"><div class="ip">489 ₸</div><button class="ab" onclick="addToCart(this,'Огнебурбе',489,'🌶️')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger">
+      <div class="ii" style="background:linear-gradient(135deg,#fff9c4,#fff176)">
+        <!--КАРТИНКА 4--><span>🧀</span>
+      </div>
+      <div class="ib"><div class="in">Сырбурбе</div><div class="id">Тройной сыр: гауда, чеддер и моцарелла. Говяжья котлета и горчичный соус.</div>
+        <div class="if"><div class="ip">469 ₸</div><button class="ab" onclick="addToCart(this,'Сырбурбе',469,'🧀')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger premium">
+      <div class="ii" style="background:linear-gradient(135deg,#fce4ec,#ef9a9a)">
+        <!--КАРТИНКА 5--><span>👑</span><div class="ibadge">ПРЕМИУМ</div>
+      </div>
+      <div class="ib"><div class="in">КингБурбе</div><div class="id">200г говядины, бекон, карамелизованный лук, трюфельный майонез, бриошь.</div>
+        <div class="if"><div class="ip">649 ₸</div><button class="ab" onclick="addToCart(this,'КингБурбе',649,'👑')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger healthy">
+      <div class="ii" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)">
+        <!--КАРТИНКА 6--><span>🥬</span>
+      </div>
+      <div class="ib"><div class="in">Зелёнбурбе</div><div class="id">Растительная котлета, авокадо, шпинат, томат и лёгкий йогуртовый соус.</div>
+        <div class="if"><div class="ip">429 ₸</div><button class="ab" onclick="addToCart(this,'Зелёнбурбе',429,'🥬')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger premium">
+      <div class="ii" style="background:linear-gradient(135deg,#ede7f6,#b39ddb)">
+        <!--КАРТИНКА 7--><span>🍄</span>
+      </div>
+      <div class="ib"><div class="in">Грибобурбе</div><div class="id">Грибной соус, жареные шампиньоны, карамелизованный лук и свежая рукола.</div>
+        <div class="if"><div class="ip">459 ₸</div><button class="ab" onclick="addToCart(this,'Грибобурбе',459,'🍄')">+ В корзину</button></div>
+      </div>
+    </div>
+
+    <div class="ic" data-tags="burger premium">
+      <div class="ii" style="background:linear-gradient(135deg,#e3f2fd,#90caf9)">
+        <!--КАРТИНКА 8--><span>🌊</span><div class="ibadge">ЛИМИТЕД</div>
+      </div>
+      <div class="ib"><div class="in">МорскоБурбе</div><div class="id">Котлета из краба и трески, нори, огурец, кунжутный соус, чипсы.</div>
+        <div class="if"><div class="ip">579 ₸</div><button class="ab" onclick="addToCart(this,'МорскоБурбе',579,'🌊')">+ В корзину</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ГАРНИРЫ -->
+<div class="ms" data-cat="sides">
+  <div class="ms-title">🍟 Гарниры</div>
+  <div class="mg">
+    <div class="ic" data-tags="sides">
+      <div class="ii" style="background:linear-gradient(135deg,#fff8dc,#ffe082)"><!--КАРТИНКА 9--><span>🍟</span></div>
+      <div class="ib"><div class="in">Картошка M</div><div class="id">Хрустящая картошка фри с морской солью. Средняя порция.</div>
+        <div class="if"><div class="ip">199 ₸</div><button class="ab" onclick="addToCart(this,'Картошка M',199,'🍟')">+ В корзину</button></div>
+      </div>
+    </div>
+    <div class="ic" data-tags="sides">
+      <div class="ii" style="background:linear-gradient(135deg,#fff8dc,#ffd740)"><!--КАРТИНКА 10--><span>🍟</span><div class="ibadge">XL</div></div>
+      <div class="ib"><div class="in">Картошка XL</div><div class="id">Огромная порция хрустящей картошки с фирменными специями.</div>
+        <div class="if"><div class="ip">269 ₸</div><button class="ab" onclick="addToCart(this,'Картошка XL',269,'🍟')">+ В корзину</button></div>
+      </div>
+    </div>
+    <div class="ic" data-tags="sides hot">
+      <div class="ii" style="background:linear-gradient(135deg,#ffccbc,#ff8a65)"><!--КАРТИНКА 11--><span>🧅</span></div>
+      <div class="ib"><div class="in">Луковые кольца</div><div class="id">Сладкий лук в хрустящей панировке с соусом ранч.</div>
+        <div class="if"><div class="ip">229 ₸</div><button class="ab" onclick="addToCart(this,'Луковые кольца',229,'🧅')">+ В корзину</button></div>
+      </div>
+    </div>
+    <div class="ic" data-tags="sides healthy">
+      <div class="ii" style="background:linear-gradient(135deg,#e8f5e9,#81c784)"><!--КАРТИНКА 12--><span>🥗</span></div>
+      <div class="ib"><div class="in">Салат Бурбе</div><div class="id">Микс зелени, черри, огурец, оливки, заправка Бурбе.</div>
+        <div class="if"><div class="ip">249 ₸</div><button class="ab" onclick="addToCart(this,'Салат Бурбе',249,'🥗')">+ В корзину</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- НАПИТКИ -->
+<div class="ms" data-cat="drinks">
+  <div class="ms-title">🥤 Напитки</div>
+  <div class="mg">
+    <div class="ic" data-tags="drinks">
+      <div class="ii" style="background:linear-gradient(135deg,#e3f2fd,#64b5f6)"><!--КАРТИНКА 13--><span>🥤</span></div>
+      <div class="ib"><div class="in">Лимонад Бурбе</div><div class="id">Свежий лимонад с мятой и лимоном. 0.5 л.</div>
+        <div class="if"><div class="ip">179 ₸</div><button class="ab" onclick="addToCart(this,'Лимонад Бурбе',179,'🥤')">+ В корзину</button></div>
+      </div>
+    </div>
+    <div class="ic" data-tags="drinks">
+      <div class="ii" style="background:linear-gradient(135deg,#fce4ec,#f48fb1)"><!--КАРТИНКА 14--><span>🍓</span></div>
+      <div class="ib"><div class="in">Смузи клубника</div><div class="id">Клубника, йогурт, банан, лёд. 0.4 л.</div>
+        <div class="if"><div class="ip">219 ₸</div><button class="ab" onclick="addToCart(this,'Смузи клубника',219,'🍓')">+ В корзину</button></div>
+      </div>
+    </div>
+    <div class="ic" data-tags="drinks">
+      <div class="ii" style="background:linear-gradient(135deg,#f3e5f5,#ce93d8)"><!--КАРТИНКА 15--><span>🍦</span></div>
+      <div class="ib"><div class="in">Мороженое Бурбе</div><div class="id">Ванильное мягкое мороженое в хрустящем вафельном стаканчике.</div>
+        <div class="if"><div class="ip">149 ₸</div><button class="ab" onclick="addToCart(this,'Мороженое Бурбе',149,'🍦')">+ В корзину</button></div>
+      </div>
+    </div>
+    <div class="ic" data-tags="drinks">
+      <div class="ii" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)"><!--КАРТИНКА 16--><span>💧</span></div>
+      <div class="ib"><div class="in">Вода Бурбе</div><div class="id">Чистая питьевая вода без газа. 0.5 л.</div>
+        <div class="if"><div class="ip">99 ₸</div><button class="ab" onclick="addToCart(this,'Вода Бурбе',99,'💧')">+ В корзину</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /padding wrapper -->
+
+<footer>
+  <span class="fl">Бурбе.</span>
+  <div><a href="index.html">Главная</a><a href="combo.html">Комбо</a><a href="#">Контакты</a></div>
+  <p>© 2025 Бурбе — Все права защищены</p>
+</footer>
+
+<!-- CART -->
+<div class="c-overlay" id="cOv" onclick="closeCart()"></div>
+<div class="c-drawer" id="cDr">
+  <div class="c-head"><h3>🛒 Корзина</h3><button class="c-close" onclick="closeCart()">✕</button></div>
+  <div class="c-body" id="cBody"><div class="c-empty"><span>🛒</span>Корзина пуста!</div></div>
+  <div class="c-foot" id="cFoot" style="display:none">
+    <div class="c-tot"><span class="c-tot-l">Итого:</span><span class="c-tot-v" id="cTot">0 ₸</span></div>
+    <a href="ORDER_LINK_HERE" id="cCo" class="btn-co">Оформить заказ →</a>
+    <button class="btn-clr" onclick="clearCart()">Очистить корзину</button>
+  </div>
+</div>
+
+<script>
+let cart=JSON.parse(localStorage.getItem('burbe_cart')||'[]');
+function saveCart(){localStorage.setItem('burbe_cart',JSON.stringify(cart));renderCart();}
+function addToCart(btn,name,price,emoji){
+  const ex=cart.find(i=>i.name===name);
+  if(ex)ex.qty++;else cart.push({name,price,emoji,qty:1});
+  saveCart();btn.textContent='✓ Добавлено';btn.classList.add('ok');
+  setTimeout(()=>{btn.textContent='+ В корзину';btn.classList.remove('ok');},1200);
+}
+function changeQty(name,d){
+  const item=cart.find(i=>i.name===name);if(!item)return;
+  item.qty+=d;if(item.qty<=0)cart=cart.filter(i=>i.name!==name);saveCart();
+}
+function clearCart(){cart=[];saveCart();}
+function renderCart(){
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const nc=document.getElementById('cNavCount');
+  if(nc){nc.textContent=count;nc.style.display=count>0?'flex':'none';}
+  const body=document.getElementById('cBody');
+  const foot=document.getElementById('cFoot');
+  if(!body)return;
+  if(cart.length===0){body.innerHTML='<div class="c-empty"><span>🛒</span>Корзина пуста!</div>';foot.style.display='none';return;}
+  foot.style.display='block';
+  document.getElementById('cTot').textContent=total.toLocaleString('ru-RU')+' ₸';
+  document.getElementById('cCo').href='ORDER_LINK_HERE?order='+encodeURIComponent(JSON.stringify(cart));
+  body.innerHTML=cart.map(i=>`
+    <div class="c-item">
+      <div class="c-item-e">${i.emoji}</div>
+      <div class="c-item-i"><div class="c-item-n">${i.name}</div><div class="c-item-p">${(i.price*i.qty).toLocaleString('ru-RU')} ₸</div></div>
+      <div class="qty">
+        <button class="qb" onclick="changeQty('${i.name}',-1)">−</button>
+        <span class="qn">${i.qty}</span>
+        <button class="qb" onclick="changeQty('${i.name}',1)">+</button>
+      </div>
+    </div>`).join('');
+}
+function openCart(){document.getElementById('cDr').classList.add('open');document.getElementById('cOv').classList.add('open');}
+function closeCart(){document.getElementById('cDr').classList.remove('open');document.getElementById('cOv').classList.remove('open');}
+
+// FILTERS
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.ic').forEach(c=>{
+      c.style.display=(f==='all'||c.dataset.tags.includes(f))?'flex':'none';
+    });
+    document.querySelectorAll('.ms').forEach(s=>{
+      const vis=[...s.querySelectorAll('.ic')].some(c=>c.style.display!=='none');
+      s.style.display=(f==='all'||vis)?'block':'none';
+    });
+  });
+});
+
+// APPEAR
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){e.target.style.animation=`fadeUp .45s ${i*.07}s ease both`;io.unobserve(e.target);}});
+},{threshold:.08});
+document.querySelectorAll('.ic').forEach(el=>{el.style.opacity='0';io.observe(el);});
+
+renderCart();
+</script>
+</body>
+</html>
