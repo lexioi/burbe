@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Бурбе — Скачать приложение</title>
+  <meta name="description" content="Скачай приложение Бурбе — заказывай бургеры в один клик, получай бонусы и эксклюзивные предложения."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --r:#E8272A; --y:#FFD600; --o:#FF6B00;
+      --dk:#1A0A00; --cream:#FFF8EF; --w:#fff;
+      --rad:18px; --sh:0 8px 32px rgba(0,0,0,0.13);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--dk);overflow-x:hidden}
+
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:999;
+      height:68px;padding:0 5vw;
+      display:flex;align-items:center;justify-content:space-between;
+      background:rgba(232,39,42,0.97);backdrop-filter:blur(12px);
+      box-shadow:0 4px 24px rgba(232,39,42,0.4);
+    }
+    .logo{font-family:'Unbounded',sans-serif;font-size:1.7rem;font-weight:900;color:var(--y);text-decoration:none;letter-spacing:-1px}
+    .logo b{color:#fff;font-weight:900}
+    .nav-links{display:flex;gap:6px;align-items:center}
+    .nav-links a{color:#fff;text-decoration:none;font-weight:700;font-size:.9rem;padding:8px 16px;border-radius:50px;transition:background .2s}
+    .nav-links a:hover{background:rgba(255,255,255,.18)}
+    .nav-app{background:var(--y)!important;color:var(--dk)!important;font-weight:900!important}
+    .burger-icon{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+    .burger-icon span{display:block;width:24px;height:2.5px;background:#fff;border-radius:2px;transition:all .3s}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:var(--r);padding:16px;z-index:998;flex-direction:column;gap:6px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+    .mobile-menu a{color:#fff;text-decoration:none;font-weight:700;padding:10px 14px;border-radius:10px;display:block;font-size:1rem}
+    .mobile-menu a:hover{background:rgba(255,255,255,.15)}
+    .mobile-menu.open{display:flex}
+    @media(max-width:640px){.nav-links{display:none}.burger-icon{display:flex}}
+
+    /* ── HERO ── */
+    .hero{
+      min-height:100vh;
+      background:linear-gradient(135deg, var(--dk) 0%, #3a0a00 50%, #1a0500 100%);
+      display:flex;align-items:center;justify-content:center;
+      padding:90px 5vw 60px;
+      position:relative;overflow:hidden;
+    }
+    .hero-bg-circle{
+      position:absolute;border-radius:50%;opacity:.08;
+    }
+    .hero-bg-circle.c1{width:600px;height:600px;background:var(--y);top:-100px;right:-150px;animation:float1 8s ease-in-out infinite}
+    .hero-bg-circle.c2{width:400px;height:400px;background:var(--r);bottom:-100px;left:-80px;animation:float2 10s ease-in-out infinite}
+    @keyframes float1{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(8deg)}}
+    @keyframes float2{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(20px) rotate(-5deg)}}
+
+    .hero-inner{
+      max-width:1100px;width:100%;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:60px;position:relative;z-index:2;
+    }
+    .hero-text{flex:1}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,214,0,.15);border:1.5px solid rgba(255,214,0,.35);
+      color:var(--y);padding:8px 20px;border-radius:50px;
+      font-weight:700;font-size:.85rem;letter-spacing:.5px;
+      margin-bottom:28px;
+    }
+    .hero-title{
+      font-family:'Unbounded',sans-serif;font-size:clamp(2.8rem,7vw,5rem);
+      font-weight:900;color:#fff;line-height:1.05;
+      margin-bottom:20px;
+    }
+    .hero-title em{color:var(--y);font-style:normal}
+    .hero-sub{color:rgba(255,255,255,.75);font-size:1.15rem;line-height:1.6;margin-bottom:40px;max-width:440px}
+
+    .download-btns{display:flex;gap:14px;flex-wrap:wrap}
+    .dl-btn{
+      display:flex;align-items:center;gap:14px;
+      padding:14px 24px;border-radius:16px;text-decoration:none;
+      transition:transform .2s,box-shadow .2s;min-width:190px;
+    }
+    .dl-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    .dl-btn.ios{background:#fff;color:var(--dk)}
+    .dl-btn.android{background:var(--y);color:var(--dk)}
+    .dl-btn-icon{font-size:2rem;line-height:1}
+    .dl-btn-text{display:flex;flex-direction:column}
+    .dl-btn-sub{font-size:.72rem;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.5px}
+    .dl-btn-name{font-family:'Unbounded',sans-serif;font-size:.95rem;font-weight:900;line-height:1.2}
+
+    /* phone mockup */
+    .hero-phone{
+      flex-shrink:0;width:280px;
+      animation:phoneFloat 6s ease-in-out infinite;
+    }
+    @keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(2deg)}}
+    .phone-frame{
+      background:linear-gradient(145deg,#2a2a2a,#1a1a1a);
+      border-radius:40px;padding:14px;
+      box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1.5px rgba(255,255,255,.08);
+    }
+    .phone-screen{
+      background:linear-gradient(160deg,var(--r),#8b0000);
+      border-radius:28px;overflow:hidden;
+      aspect-ratio:9/19;display:flex;flex-direction:column;
+    }
+    .ps-head{background:rgba(0,0,0,.3);padding:16px;display:flex;justify-content:space-between;align-items:center}
+    .ps-logo{font-family:'Unbounded',sans-serif;color:var(--y);font-weight:900;font-size:.8rem}
+    .ps-cart{color:#fff;font-size:.9rem}
+    .ps-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
+    .ps-burger{font-size:4rem;animation:spin 20s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .ps-item-name{color:#fff;font-family:'Unbounded',sans-serif;font-size:.75rem;font-weight:900;text-align:center}
+    .ps-price{color:var(--y);font-family:'Unbounded',sans-serif;font-size:1.1rem;font-weight:900}
+    .ps-btn{background:var(--y);color:var(--dk);font-weight:900;font-size:.72rem;padding:9px 22px;border-radius:50px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;width:100%}
+    .ps-footer{background:rgba(0,0,0,.25);padding:10px;display:flex;justify-content:space-around}
+    .ps-tab{color:rgba(255,255,255,.5);font-size:.65rem;text-align:center;cursor:pointer;transition:color .2s}
+    .ps-tab.active{color:var(--y)}
+    .ps-tab-icon{font-size:1.2rem;display:block}
+
+    /* ── WHY APP ── */
+    .why{padding:80px 5vw;max-width:1100px;margin:0 auto;text-align:center}
+    .sec-tag{margin-bottom:14px}
+    .sec-tag span{background:var(--y);color:var(--dk);font-family:'Unbounded',sans-serif;font-size:.72rem;font-weight:900;padding:6px 16px;border-radius:50px;letter-spacing:1px}
+    .sec-title{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;margin-bottom:12px}
+    .sec-sub{color:#666;font-size:1rem;margin-bottom:48px}
+
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;text-align:left}
+    .feat-card{
+      background:#fff;border-radius:var(--rad);padding:28px 24px;
+      box-shadow:var(--sh);transition:transform .2s;
+    }
+    .feat-card:hover{transform:translateY(-4px)}
+    .feat-icon{font-size:2.2rem;display:block;margin-bottom:14px}
+    .feat-title{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;margin-bottom:8px}
+    .feat-desc{color:#666;font-size:.9rem;line-height:1.55}
+
+    /* ── STEPS ── */
+    .steps-section{background:var(--dk);padding:80px 5vw;text-align:center;color:#fff}
+    .steps-section .sec-title{color:#fff}
+    .steps-section .sec-sub{color:rgba(255,255,255,.6)}
+    .steps-grid{display:flex;justify-content:center;gap:0;flex-wrap:wrap;max-width:900px;margin:0 auto}
+    .step{flex:1;min-width:200px;padding:24px;position:relative}
+    .step:not(:last-child)::after{
+      content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+      color:var(--y);font-size:1.5rem;font-weight:900;
+    }
+    .step-num{
+      width:56px;height:56px;border-radius:50%;
+      background:var(--y);color:var(--dk);
+      font-family:'Unbounded',sans-serif;font-weight:900;font-size:1.1rem;
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 16px;
+    }
+    .step-title{font-family:'Unbounded',sans-serif;font-size:.92rem;font-weight:700;color:#fff;margin-bottom:8px}
+    .step-desc{color:rgba(255,255,255,.6);font-size:.85rem;line-height:1.5}
+
+    /* ── BONUS ── */
+    .bonus{padding:80px 5vw;max-width:1000px;margin:0 auto}
+    .bonus-card{
+      background:linear-gradient(135deg,var(--r),var(--o));
+      border-radius:28px;padding:48px;color:#fff;
+      display:flex;align-items:center;gap:48px;
+      box-shadow:0 20px 60px rgba(232,39,42,.35);
+      flex-wrap:wrap;
+    }
+    .bonus-text{flex:1;min-width:240px}
+    .bonus-tag{display:inline-block;background:rgba(255,255,255,.2);padding:5px 14px;border-radius:50px;font-size:.8rem;font-weight:700;margin-bottom:16px;letter-spacing:.5px}
+    .bonus-title{font-family:'Unbounded',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;margin-bottom:14px;line-height:1.15}
+    .bonus-desc{opacity:.9;line-height:1.6;font-size:.95rem}
+    .bonus-emoji{font-size:clamp(5rem,10vw,9rem);flex-shrink:0;animation:bounce 2s ease-in-out infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+    /* ── DOWNLOAD CTA ── */
+    .cta{padding:80px 5vw;text-align:center;background:var(--cream)}
+    .cta-title{font-family:'Unbounded',sans-serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;margin-bottom:16px}
+    .cta-sub{color:#666;font-size:1.05rem;margin-bottom:36px}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+    /* ── FOOTER ── */
+    footer{background:var(--dk);color:rgba(255,255,255,.55);padding:32px 5vw;text-align:center;font-size:.88rem}
+    footer a{color:rgba(255,255,255,.55);text-decoration:none;margin:0 10px}
+    footer a:hover{color:var(--y)}
+    .footer-logo{font-family:'Unbounded',sans-serif;color:var(--y);font-weight:900;font-size:1.2rem;display:block;margin-bottom:12px}
+    .footer-logo b{color:#fff}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Бур<b>бе.</b></a>
+  <div class="nav-links">
+    <a href="index.html">🏠 Главная</a>
+    <a href="menu.html">🍔 Меню</a>
+    <a href="combo.html">🎁 Комбо</a>
+    <a href="app.html" class="nav-app">📱 Приложение</a>
+  </div>
+  <div class="burger-icon" onclick="document.getElementById('mm').classList.toggle('open')" id="burgerIcon">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">🏠 Главная</a>
+  <a href="menu.html">🍔 Меню</a>
+  <a href="combo.html">🎁 Комбо</a>
+  <a href="app.html">📱 Приложение</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">🚀 ДОСТУПНО ДЛЯ iOS И ANDROID</div>
+      <h1 class="hero-title">Бургеры<br/>в <em>один</em><br/>клик</h1>
+      <p class="hero-sub">Заказывай любимые бургеры прямо с телефона. Бонусы, персональные скидки и горячие предложения — всё в приложении.</p>
+      <div class="download-btns">
+        <a href="APP_STORE_LINK_HERE" class="dl-btn ios">
+          <div class="dl-btn-icon">🍎</div>
+          <div class="dl-btn-text">
+            <span class="dl-btn-sub">Скачать в</span>
+            <span class="dl-btn-name">App Store</span>
+          </div>
+        </a>
+        <a href="GOOGLE_PLAY_LINK_HERE" class="dl-btn android">
+          <div class="dl-btn-icon">▶</div>
+          <div class="dl-btn-text">
+            <span class="dl-btn-sub">Доступно в</span>
+            <span class="dl-btn-name">Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="hero-phone">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="ps-head">
+            <span class="ps-logo">БУРБЕ.</span>
+            <span class="ps-cart">🛒</span>
+          </div>
+          <div class="ps-hero">
+            <div class="ps-burger">🍔</div>
+            <div class="ps-item-name">ЧИКЕНБУРБЕ</div>
+            <div class="ps-price">449 ₸</div>
+            <button class="ps-btn">+ ДОБАВИТЬ</button>
+          </div>
+          <div class="ps-footer">
+            <div class="ps-tab active"><span class="ps-tab-icon">🏠</span>Главная</div>
+            <div class="ps-tab"><span class="ps-tab-icon">🍔</span>Меню</div>
+            <div class="ps-tab"><span class="ps-tab-icon">🎁</span>Комбо</div>
+            <div class="ps-tab"><span class="ps-tab-icon">👤</span>Профиль</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY APP -->
+<section class="why">
+  <div class="sec-tag"><span>ЗАЧЕМ ПРИЛОЖЕНИЕ</span></div>
+  <h2 class="sec-title">Это удобнее, чем думаешь</h2>
+  <p class="sec-sub">Всё что нужно — в одном месте</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <span class="feat-icon">⚡</span>
+      <div class="feat-title">Быстрый заказ</div>
+      <div class="feat-desc">Сохрани любимый заказ и повторяй его в 2 клика. Не нужно каждый раз выбирать заново.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🎁</span>
+      <div class="feat-title">Бонусы за каждый заказ</div>
+      <div class="feat-desc">Копи баллы и трать на бесплатные бургеры. 1 тенге = 1 бонус. Уже после первого заказа.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🔔</span>
+      <div class="feat-title">Персональные акции</div>
+      <div class="feat-desc">Первым узнавай о скидках и акциях. Push-уведомления о горячих предложениях.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">📍</span>
+      <div class="feat-title">Отслеживай заказ</div>
+      <div class="feat-desc">Смотри статус заказа в реальном времени. Знай точно, когда твой бургер будет готов.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">💳</span>
+      <div class="feat-title">Онлайн-оплата</div>
+      <div class="feat-desc">Карта, Kaspi, Apple Pay, Google Pay — плати как удобно. Без ожидания на кассе.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🗓</span>
+      <div class="feat-title">История заказов</div>
+      <div class="feat-desc">Все заказы сохраняются. Повторяй любой прошлый заказ мгновенно.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="steps-section">
+  <div class="sec-tag"><span>КАК РАБОТАЕТ</span></div>
+  <h2 class="sec-title" style="margin-top:14px">4 шага до бургера</h2>
+  <p class="sec-sub">Проще, чем кажется</p>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Скачай</div>
+      <div class="step-desc">App Store или Google Play — бесплатно</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Выбери</div>
+      <div class="step-desc">Открой меню и добавь любимое в корзину</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Оплати</div>
+      <div class="step-desc">Любым удобным способом онлайн</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Получи 🔥</div>
+      <div class="step-desc">Самовывоз или доставка — на твой выбор</div>
+    </div>
+  </div>
+</section>
+
+<!-- BONUS -->
+<section style="padding:80px 5vw;background:var(--cream)">
+  <div class="bonus">
+    <div class="bonus-card">
+      <div class="bonus-text">
+        <div class="bonus-tag">🎉 ТОЛЬКО В ПРИЛОЖЕНИИ</div>
+        <h2 class="bonus-title">Скидка 15%<br/>на первый заказ</h2>
+        <p class="bonus-desc">Скачай приложение и получи скидку 15% на первый заказ. Промокод приходит сразу после регистрации.</p>
+      </div>
+      <div class="bonus-emoji">🎊</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 class="cta-title">Попробуй прямо сейчас</h2>
+  <p class="cta-sub">Скачай бесплатно — доступно для iPhone и Android</p>
+  <div class="cta-btns">
+    <a href="APP_STORE_LINK_HERE" class="dl-btn ios" style="border:2px solid var(--dk)">
+      <div class="dl-btn-icon">🍎</div>
+      <div class="dl-btn-text">
+        <span class="dl-btn-sub">Скачать в</span>
+        <span class="dl-btn-name">App Store</span>
+      </div>
+    </a>
+    <a href="GOOGLE_PLAY_LINK_HERE" class="dl-btn android">
+      <div class="dl-btn-icon">▶</div>
+      <div class="dl-btn-text">
+        <span class="dl-btn-sub">Доступно в</span>
+        <span class="dl-btn-name">Google Play</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Бур<b>бе.</b></span>
+  <div>
+    <a href="index.html">Главная</a>
+    <a href="menu.html">Меню</a>
+    <a href="combo.html">Комбо</a>
+    <a href="app.html">Приложение</a>
+  </div>
+  <p style="margin-top:16px">© 2025 Бурбе. Все права защищены.</p>
+</footer>
+
+</body>
+</html>
